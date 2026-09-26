@@ -59,7 +59,7 @@ export function createServer(clientOptions: ClientOptions = {}): McpServer {
         recipient: z
           .string()
           .min(1)
-          .describe("LinkedIn profile URL (preferred) or full name of someone the user can already message on LinkedIn."),
+          .describe("LinkedIn profile URL (preferred), e.g. https://www.linkedin.com/in/jane-doe, or just the name part after /in/. Must be someone the user can already message on LinkedIn."),
         audio_url: z.string().url().optional().describe("audio_url returned by upload_audio. Provide this OR file_path."),
         file_path: z.string().min(1).optional().describe("Local audio file to upload and send. Provide this OR audio_url."),
         dry_run: z
