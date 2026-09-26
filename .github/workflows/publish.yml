@@ -1,0 +1,58 @@
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (OIDC) + provenance
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1.
+      - run: npm install -g npm@latest
+
+      - name: Check tag, package.json and server.json versions agree
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          SRV="$(node -p "require('./server.json').version")"
+          SRV_PKG="$(node -p "require('./server.json').packages[0].version")"
+          REPO="$(node -p "(require('./package.json').repository||{}).url||''")"
+          echo "tag=$TAG package=$PKG server=$SRV server.packages=$SRV_PKG"
+          test "$TAG" = "$PKG" && test "$TAG" = "$SRV" && test "$TAG" = "$SRV_PKG"
+          if [ -z "$REPO" ]; then echo "package.json repository.url is required for npm provenance"; exit 1; fi
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+      # No NPM_TOKEN: authenticates via the trusted publisher configured on npmjs.com.
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+
+      - name: Authenticate to MCP Registry (DNS, svarapi.io)
+        env:
+          MCP_REGISTRY_DNS_KEY: ${{ secrets.MCP_REGISTRY_DNS_KEY }}
+        run: ./mcp-publisher login dns --domain svarapi.io --private-key "${MCP_REGISTRY_DNS_KEY}"
+
+      - name: Publish to MCP Registry
+        run: ./mcp-publisher publish

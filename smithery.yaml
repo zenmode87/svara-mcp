@@ -1,0 +1,19 @@
+# Smithery configuration: https://smithery.ai/docs/build/project-config
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - SVARA_API_KEY
+    properties:
+      SVARA_API_KEY:
+        type: string
+        description: Your Svara API key (secret). Create one at https://svarapi.io/dashboard.
+  commandFunction: |-
+    (config) => ({
+      command: 'npx',
+      args: ['-y', '@svarapi/mcp'],
+      env: { SVARA_API_KEY: config.SVARA_API_KEY }
+    })
+  exampleConfig:
+    SVARA_API_KEY: your_svara_api_key

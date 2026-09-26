@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.svarapi/mcp",
+  "title": "Svara",
+  "description": "Send native LinkedIn voice notes from your AI assistant via the Svara API.",
+  "websiteUrl": "https://svarapi.io",
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@svarapi/mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SVARA_API_KEY",
+          "description": "Your Svara API key (create one at https://svarapi.io/dashboard)",
+          "format": "string",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
