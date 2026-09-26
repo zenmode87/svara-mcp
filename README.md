@@ -22,7 +22,7 @@ Sends are **dry runs by default**: nothing is delivered unless `dry_run` is expl
 
 ## Setup
 
-All clients run the same command: `npx -y @svarapi/mcp` with `SVARA_API_KEY` in the environment.
+All clients run the same command: `npx -y svara-mcp` with `SVARA_API_KEY` in the environment.
 
 ### Claude Desktop
 
@@ -33,7 +33,7 @@ Add to `claude_desktop_config.json` (Settings > Developer > Edit Config):
   "mcpServers": {
     "svara": {
       "command": "npx",
-      "args": ["-y", "@svarapi/mcp"],
+      "args": ["-y", "svara-mcp"],
       "env": { "SVARA_API_KEY": "your_svara_api_key" }
     }
   }
@@ -43,7 +43,7 @@ Add to `claude_desktop_config.json` (Settings > Developer > Edit Config):
 ### Claude Code
 
 ```bash
-claude mcp add svara --env SVARA_API_KEY=your_svara_api_key -- npx -y @svarapi/mcp
+claude mcp add svara --env SVARA_API_KEY=your_svara_api_key -- npx -y svara-mcp
 ```
 
 ### Cursor
@@ -55,7 +55,7 @@ Add to `~/.cursor/mcp.json` (or `.cursor/mcp.json` in a project):
   "mcpServers": {
     "svara": {
       "command": "npx",
-      "args": ["-y", "@svarapi/mcp"],
+      "args": ["-y", "svara-mcp"],
       "env": { "SVARA_API_KEY": "your_svara_api_key" }
     }
   }
@@ -75,7 +75,7 @@ Add to `.vscode/mcp.json`:
     "svara": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@svarapi/mcp"],
+      "args": ["-y", "svara-mcp"],
       "env": { "SVARA_API_KEY": "${input:svara-api-key}" }
     }
   }

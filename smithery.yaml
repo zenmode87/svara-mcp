@@ -12,7 +12,7 @@ startCommand:
   commandFunction: |-
     (config) => ({
       command: 'npx',
-      args: ['-y', '@svarapi/mcp'],
+      args: ['-y', 'svara-mcp'],
       env: { SVARA_API_KEY: config.SVARA_API_KEY }
     })
   exampleConfig:

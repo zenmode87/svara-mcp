@@ -1,5 +1,5 @@
 {
-  "name": "@svarapi/mcp",
+  "name": "svara-mcp",
   "version": "0.1.0",
   "description": "MCP server for Svara: send native LinkedIn voice notes from any MCP client.",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "engines": {
     "node": ">=20"
   },
-  "homepage": "https://svarapi.io",
+  "homepage": "https://github.com/zenmode87/svara-mcp#readme",
   "keywords": [
     "mcp",
     "model-context-protocol",
@@ -37,5 +37,12 @@
     "@types/node": "^20.19.43",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenmode87/svara-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zenmode87/svara-mcp/issues"
   }
 }

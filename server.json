@@ -8,7 +8,7 @@
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "@svarapi/mcp",
+      "identifier": "svara-mcp",
       "version": "0.1.0",
       "transport": {
         "type": "stdio"
@@ -23,5 +23,9 @@
         }
       ]
     }
-  ]
+  ],
+  "repository": {
+    "url": "https://github.com/zenmode87/svara-mcp",
+    "source": "github"
+  }
 }
