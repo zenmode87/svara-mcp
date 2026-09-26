@@ -24,6 +24,12 @@ echo "v=MCPv1; k=ed25519; p=${PUBLIC_KEY}"
 openssl pkey -in key.pem -noout -text | grep -A3 "priv:" | tail -n +2 | tr -d ' :\n'
 ```
 
+No OpenSSL 3 (e.g. stock macOS)? The same seed with Node:
+
+```bash
+node -e 'const c=require("crypto"),fs=require("fs");process.stdout.write(c.createPrivateKey(fs.readFileSync(process.argv[1])).export({type:"pkcs8",format:"der"}).subarray(-32).toString("hex"))' key.pem
+```
+
 - DNS: add a `TXT` record on `svarapi.io` (apex, `@`) with value `v=MCPv1; k=ed25519; p=<PUBLIC_KEY>`. It can coexist with other apex TXT records (SPF, verification tokens).
 - GitHub: store the hex string as secret `MCP_REGISTRY_DNS_KEY`.
 - The workflow runs `mcp-publisher login dns --domain svarapi.io --private-key "$MCP_REGISTRY_DNS_KEY"` then `mcp-publisher publish`.
