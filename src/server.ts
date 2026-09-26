@@ -26,7 +26,7 @@ const SEND_DESCRIPTION = [
   "Send a native LinkedIn voice note to a person via Svara.",
   "WARNING: when dry_run is false this sends a REAL LinkedIn voice message to a real person, from the user's own LinkedIn account. It cannot be unsent.",
   "Only call with dry_run=false when the user has explicitly asked you to send this voice note to this recipient. dry_run defaults to true, which validates the request without sending anything.",
-  "The recipient must be someone the user can already message on LinkedIn (for example a 1st-degree connection); pass their LinkedIn profile URL (preferred) or full name.",
+  "The recipient must be someone the user can already message on LinkedIn (for example a 1st-degree connection); pass their LinkedIn profile URL (preferred) or the name part after /in/ (not their display name).",
   "Provide exactly one of audio_url (from upload_audio) or file_path (a local audio file, uploaded first).",
   "Delivery requires the Svara Chrome extension to be installed and the user to be signed in to LinkedIn in Chrome.",
   "Returns a message id; check delivery with get_send_status.",
